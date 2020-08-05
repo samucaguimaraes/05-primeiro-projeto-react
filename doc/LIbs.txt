@@ -1,0 +1,13 @@
+# Biblioteca para rotas, na web a mais utilizada é a React Router Dom
+yarn add react-router-dom
+yarn add @types/react-router-dom
+
+# Biblioteca de estilização
+yarn add styled-components
+yarn add @types/styled-components
+
+# Trabalhando com cores escurencendo ou clareando um determinado elemento
+yarn add polished
+
+# Icones
+yarn add react-icons

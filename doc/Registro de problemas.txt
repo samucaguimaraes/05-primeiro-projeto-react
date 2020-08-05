@@ -1,0 +1,11 @@
+# Criando um aplicativo
+create-react-app 05-primeiro-projeto-react --template=typescript
+
+  #Erro 01 - Problema: internal/modules/cjs/loader.js:969 (Error: Cannot find module 'tapable')
+   S1: npm install tapable;  unisnstall tapable
+
+   S2:
+    yarn cache clean
+    yarn install
+    yarn remove tapable
+
