@@ -8,7 +8,7 @@ const Routes: React.FC = () => (
   //O Switch garante a execução de uma unica rota
   <Switch>
     <Route path="/" exact component={Dashboard} />
-    <Route path="/repository" exact component={Repository} />
+    <Route path="/repositories/:repository+" component={Repository} />
   </Switch>
 )
 

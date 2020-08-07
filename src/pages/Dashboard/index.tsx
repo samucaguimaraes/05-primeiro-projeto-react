@@ -1,5 +1,6 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import logoImg from '../../assets/logo.svg';
 import {Title, Form, Repositories, Error} from './styles';
@@ -23,7 +24,26 @@ const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
   const [inputError, setInputError] = useState('');
   /** Armazenando os reposiórios */
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [repositories, setRepositories] = useState<Repository[]>(() => {
+    /** Verifico se tem algum repositorio no storage, caso não retorna o [] */
+    const storagedRepositories = localStorage.getItem(
+      '@githubExplorer:repositories',
+    );
+
+    if(storagedRepositories){
+      return JSON.parse(storagedRepositories);
+    }
+
+    return [];
+  });
+
+  /** Atualiza uma variável no localstorage toda vez que houver mudanças */
+  useEffect(() => {
+    localStorage.setItem(
+      '@githubExplorer:repositories',
+      JSON.stringify(repositories))
+  }, [repositories]);
+
 
   async function handleAddRepository(
    event: FormEvent<HTMLFormElement>
@@ -66,7 +86,10 @@ const Dashboard: React.FC = () => {
 
     <Repositories>
       {repositories.map(repository => (
-      <a key={repository.id}  href="teste">
+      <Link
+        key={repository.id}
+        to={`/repositories/${repository.full_name}`}
+      >
         <img
           src={repository.owner.avatar_url}
           alt={repository.owner.login}
@@ -76,7 +99,7 @@ const Dashboard: React.FC = () => {
           <p>{repository.description}</p>
         </div>
         <FiChevronRight size={20} />
-      </a>
+      </Link>
       ))}
     </Repositories>
   </>
